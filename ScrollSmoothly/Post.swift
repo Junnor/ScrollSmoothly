@@ -31,24 +31,22 @@ class PostViewModel: NSObject {
                 
                 var emptyContentText = true
                 
+                let leadingSpace: CGFloat = 56 // ( 8 + 40 + 8)
+                let trainingSpace: CGFloat = 8
+                let gap = leadingSpace + trainingSpace
+
                 if let contentText = post.contentText, contentText.characters.count > 0 {
                     emptyContentText = false
-                    let textWidth = screenWidth - 2 * padding
+                    let textWidth = screenWidth - gap
                     let font = UIFont(name: "PingFangSC-Regular", size: 16)!  // 字体必须和 storyboard 设置的一致
                     
-                    let height = contentText.boundingRect(with: textWidth, font: font, limitLines: 6).height + 10 // 多出 10 的间隙
-                    
-//                    let height = (contentText as NSString).boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).height + 20  // 20 为头部和底部的间隙
+                    let height = contentText.boundingRect(with: textWidth, font: font, limitLines: 0).height + 10 // 多出 10 的间隙
                     
                     contentTextHeight = height
                     cellHeight += contentTextHeight + padding
                 }
                 
                 if let images = post.imagesString, images.count > 0 {
-                    
-                    let leadingSpace: CGFloat = 56 // ( 8 + 40 + 8)
-                    let trainingSpace: CGFloat = 8
-                    let gap = leadingSpace + trainingSpace
                     
                     let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - (gap + cellCollectionViewPadding * 2)
                     
