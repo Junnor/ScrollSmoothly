@@ -46,7 +46,11 @@ class PostViewModel: NSObject {
                 
                 if let images = post.imagesString, images.count > 0 {
                     
-                    let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - (padding * 2 + cellCollectionViewPadding * 2)
+                    let leadingSpace: CGFloat = 56 // ( 8 + 40 + 8)
+                    let trainingSpace: CGFloat = 8
+                    let gap = leadingSpace + trainingSpace
+                    
+                    let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - (gap + cellCollectionViewPadding * 2)
                     
                     let maxWidth = pictureMaxWidth
                     let width = maxWidth / 3
