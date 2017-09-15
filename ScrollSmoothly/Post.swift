@@ -33,9 +33,13 @@ class PostViewModel: NSObject {
                 
                 if let contentText = post.contentText, contentText.characters.count > 0 {
                     emptyContentText = false
-                    let maxSize = CGSize(width: screenWidth - 2 * padding, height: CGFloat(Double.greatestFiniteMagnitude))
+                    let textWidth = screenWidth - 2 * padding
                     let font = UIFont(name: "PingFangSC-Regular", size: 17)!  // 字体必须和 storyboard 设置的姿态一致
-                    let height = (contentText as NSString).boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).height + 20  // 20 为头部和底部的间隙
+                    
+                    let height = contentText.boundingRect(with: textWidth, font: font, limitLines: 6).height
+                    
+//                    let height = (contentText as NSString).boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).height + 20  // 20 为头部和底部的间隙
+                    
                     mainTextHeight = height
                     cellHeight += mainTextHeight + padding
                 }
