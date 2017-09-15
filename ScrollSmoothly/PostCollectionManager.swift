@@ -63,8 +63,19 @@ extension PostCollectionManager: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
-        return CGSize(width: width, height: width)
+        
+//        let width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
+//        return CGSize(width: width, height: width)
+
+        switch cardsUrlString.count {
+        case 3, 6, 9:
+            let width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
+            return CGSize(width: width, height: width)
+        case 1, 2:
+            let width = collectionView.bounds.width / 2
+            return CGSize(width: width, height: width)
+        default: return CGSize.zero
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

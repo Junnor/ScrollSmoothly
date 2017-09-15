@@ -48,9 +48,12 @@ class PostViewModel: NSObject {
                 
                 if let images = post.imagesString, images.count > 0 {
                     
+                    // MARK: - 第一种方法布局
+                    /*
                     let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - (gap + cellCollectionViewPadding * 2)
                     
                     let maxWidth = pictureMaxWidth
+                    
                     let width = maxWidth / 3
                     let height = width
                     
@@ -59,8 +62,40 @@ class PostViewModel: NSObject {
                     let linePadding = CGFloat(count - 1) * cellCollectionViewPadding
                     
                     pictureCollectionHeight = height * CGFloat(count) + linePadding
+                     
                     cellHeight += pictureCollectionHeight + padding
+                    let gapBetweenImageAndComment = padding / 2
+                    cellHeight += gapBetweenImageAndComment
+                    */
                     
+                    // MARK: - 第二种方法布局
+                    let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - (gap + cellCollectionViewPadding * 2)
+                    
+                    let maxWidth = pictureMaxWidth
+                    
+                    let bigWidth = maxWidth / 2
+                    let middleWidth = maxWidth / 3  //  .. normal
+                    let smallWidth = maxWidth / 4
+
+                    switch images.count {
+                    case 1:
+                        pictureCollectionHeight = bigWidth
+                    case 2:
+                        pictureCollectionHeight = bigWidth
+                    case 3, 4, 6, 9:
+                        let gap = CGFloat(images.count / 3 - 1) * cellCollectionViewPadding
+                        pictureCollectionHeight = CGFloat(images.count) * middleWidth + gap
+                    case 5:
+                        pictureCollectionHeight = bigWidth + middleWidth + cellCollectionViewPadding
+                    case 7:
+                        pictureCollectionHeight = middleWidth + smallWidth + cellCollectionViewPadding
+                    case 8:
+                        pictureCollectionHeight = smallWidth * 2 + cellCollectionViewPadding
+                    default:
+                        break
+                    }
+                    
+                    cellHeight += pictureCollectionHeight + padding
                     let gapBetweenImageAndComment = padding / 2
                     cellHeight += gapBetweenImageAndComment
                 }
