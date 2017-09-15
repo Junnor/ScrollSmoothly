@@ -32,7 +32,8 @@ class PostCell: UICollectionViewCell {
     
     @IBOutlet weak var contentLabelConstraintHeight: NSLayoutConstraint!
     @IBOutlet weak var collectionViewConstraintHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var collectionViewConstraintTrailing: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -93,6 +94,9 @@ class PostCell: UICollectionViewCell {
     private func layoutContent(postView: PostViewModel) {
         contentLabelConstraintHeight.constant = postView.contentTextHeight
         collectionViewConstraintHeight.constant = postView.pictureCollectionHeight
+        collectionViewConstraintTrailing.constant = postView.pictureCollectionTrailing
+        
+        layoutIfNeeded()
     }
 
 }

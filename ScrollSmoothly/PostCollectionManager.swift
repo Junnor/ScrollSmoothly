@@ -49,7 +49,7 @@ extension PostCollectionManager: UICollectionViewDataSource {
                                            progressBlock: nil,
                                            completionHandler: nil)
             }
-
+            
         }
         
         return cell
@@ -64,18 +64,37 @@ extension PostCollectionManager: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-//        let width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
-//        return CGSize(width: width, height: width)
-
+        //        let width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
+        //        return CGSize(width: width, height: width)
+        
+        var width: CGFloat = 0
         switch cardsUrlString.count {
         case 3, 6, 9:
-            let width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
-            return CGSize(width: width, height: width)
-        case 1, 2:
-            let width = collectionView.bounds.width / 2
-            return CGSize(width: width, height: width)
-        default: return CGSize.zero
+            width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
+        case 1:
+            width = self.collectionView!.bounds.width
+        case 2:
+            width = (collectionView.bounds.width - cellCollectionViewPadding) / 2
+        case 4:
+            width = (collectionView.bounds.width - cellCollectionViewPadding) / 2
+        case 5:
+            if indexPath.item < 2 {   // 0...1
+                width = (collectionView.bounds.width - cellCollectionViewPadding) / 2
+            } else {    // 2...4
+                width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
+            }
+        case 7:
+            if indexPath.item < 3 {   // 0...2
+                width = (collectionView.bounds.width - 2 * cellCollectionViewPadding) / 3
+            } else {   // 3...6
+                width = (collectionView.bounds.width - 3 * cellCollectionViewPadding) / 4
+            }
+        case 8:
+            width = (collectionView.bounds.width - 3 * cellCollectionViewPadding) / 4
+        default: break
         }
+        
+        return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

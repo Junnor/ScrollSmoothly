@@ -21,7 +21,8 @@ class PostViewModel: NSObject {
 
     var contentTextHeight: CGFloat = 0.0
     var pictureCollectionHeight: CGFloat = 0.0
-    
+    var pictureCollectionTrailing: CGFloat = 0.0
+
     var post: Post? {
         didSet {
             if let post = post {            
@@ -69,9 +70,9 @@ class PostViewModel: NSObject {
                     */
                     
                     // MARK: - 第二种方法布局
-                    let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - (gap + cellCollectionViewPadding * 2)
+                    let pictureMaxWidth: CGFloat = UIScreen.main.bounds.width - gap
                     
-                    let maxWidth = pictureMaxWidth
+                    let maxWidth = pictureMaxWidth - cellCollectionViewPadding * 2
                     
                     let bigWidth = maxWidth / 2
                     let middleWidth = maxWidth / 3  //  .. normal
@@ -80,17 +81,26 @@ class PostViewModel: NSObject {
                     switch images.count {
                     case 1:
                         pictureCollectionHeight = bigWidth
+                        pictureCollectionTrailing = pictureCollectionHeight
                     case 2:
                         pictureCollectionHeight = bigWidth
-                    case 3, 4, 6, 9:
+                        pictureCollectionTrailing = 8
+                    case 3, 6, 9:
                         let gap = CGFloat(images.count / 3 - 1) * cellCollectionViewPadding
-                        pictureCollectionHeight = CGFloat(images.count) * middleWidth + gap
+                        pictureCollectionHeight = CGFloat(images.count / 3) * middleWidth + gap
+                        pictureCollectionTrailing = 8
+                    case 4:
+                        pictureCollectionHeight = middleWidth * 2 + cellCollectionViewPadding
+                        pictureCollectionTrailing = middleWidth + cellCollectionViewPadding
                     case 5:
                         pictureCollectionHeight = bigWidth + middleWidth + cellCollectionViewPadding
+                        pictureCollectionTrailing = 8
                     case 7:
                         pictureCollectionHeight = middleWidth + smallWidth + cellCollectionViewPadding
+                        pictureCollectionTrailing = 8
                     case 8:
                         pictureCollectionHeight = smallWidth * 2 + cellCollectionViewPadding
+                        pictureCollectionTrailing = 8
                     default:
                         break
                     }
