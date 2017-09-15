@@ -91,7 +91,7 @@ class PostCell: UICollectionViewCell {
     }
     
     private func layoutContent(postView: PostViewModel) {
-        contentLabelConstraintHeight.constant = postView.mainTextHeight
+        contentLabelConstraintHeight.constant = postView.contentTextHeight
         collectionViewConstraintHeight.constant = postView.pictureCollectionHeight
     }
 

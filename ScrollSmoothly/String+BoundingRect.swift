@@ -2,7 +2,7 @@
 //  String+BoundingRect.swift
 //  ScrollSmoothly
 //
-//  Created by nyato on 2017/9/15.
+//  Created by ju on 2017/9/15.
 //  Copyright © 2017年 ju. All rights reserved.
 //
 

@@ -19,7 +19,7 @@ class PostViewModel: NSObject {
     
     var cellHeight: CGFloat = 0
 
-    var mainTextHeight: CGFloat = 0.0
+    var contentTextHeight: CGFloat = 0.0
     var pictureCollectionHeight: CGFloat = 0.0
     
     var post: Post? {
@@ -34,14 +34,14 @@ class PostViewModel: NSObject {
                 if let contentText = post.contentText, contentText.characters.count > 0 {
                     emptyContentText = false
                     let textWidth = screenWidth - 2 * padding
-                    let font = UIFont(name: "PingFangSC-Regular", size: 17)!  // 字体必须和 storyboard 设置的姿态一致
+                    let font = UIFont(name: "PingFangSC-Regular", size: 16)!  // 字体必须和 storyboard 设置的一致
                     
-                    let height = contentText.boundingRect(with: textWidth, font: font, limitLines: 6).height
+                    let height = contentText.boundingRect(with: textWidth, font: font, limitLines: 6).height + 10 // 多出 10 的间隙
                     
 //                    let height = (contentText as NSString).boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).height + 20  // 20 为头部和底部的间隙
                     
-                    mainTextHeight = height
-                    cellHeight += mainTextHeight + padding
+                    contentTextHeight = height
+                    cellHeight += contentTextHeight + padding
                 }
                 
                 if let images = post.imagesString, images.count > 0 {
@@ -85,7 +85,7 @@ class Post: NSObject {
         self.author = dict["author"] as! String
         
         self.avatarUrlString = dict["avatar"] as? String
-        self.contentText = dict["mainText"] as? String
+        self.contentText = dict["contentText"] as? String
         self.imagesString = dict["pics"] as? [String]
     }
 
